@@ -15,17 +15,18 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.grey[300],
         body: Center(
             child: SafeArea(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            const SizedBox(height: 50),
+            const SizedBox(height: 10),
             // logo
             const Icon(
               Icons.lock,
               size: 100,
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 10),
             Text('Welcome back!',
                 style: TextStyle(
                   fontSize: 15,
@@ -41,7 +42,7 @@ class LoginPage extends StatelessWidget {
               hintText: 'Username',
               obscureText: false,
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 10),
             //password textfield
             MyTextField(
               controller: passwordController,
@@ -51,7 +52,7 @@ class LoginPage extends StatelessWidget {
             const SizedBox(height: 10),
             //forgot password
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: (Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -104,7 +105,7 @@ class LoginPage extends StatelessWidget {
             ),
 
             const Padding(
-              padding: EdgeInsets.all(25.0),
+              padding: EdgeInsets.all(10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -118,7 +119,7 @@ class LoginPage extends StatelessWidget {
             ),
 
             Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
