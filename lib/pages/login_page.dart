@@ -1,17 +1,43 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_x/components/my_button.dart';
 import 'package:project_x/components/my_textfield.dart';
 import 'package:project_x/components/square_tile.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   // text editing contollers
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
+
   // sign in function
-  void signIn() {
+  void signUserIn() async {
+    // show loading dialog
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+    //try sign in
+
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text, password: passwordController.text);
+    // ignore: use_build_context_synchronously
+    Navigator.pop(context);
+
     // print('sign in');
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +64,7 @@ class LoginPage extends StatelessWidget {
 
             //user name textfield
             MyTextField(
-              controller: usernameController,
+              controller: emailController,
               hintText: 'Username',
               obscureText: false,
             ),
@@ -66,7 +92,7 @@ class LoginPage extends StatelessWidget {
               )),
             ),
             const SizedBox(height: 25),
-            MyButton(onTap: signIn),
+            MyButton(onTap: signUserIn),
             //login button
 
             // or continue with
