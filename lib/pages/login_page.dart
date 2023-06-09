@@ -29,13 +29,50 @@ class _LoginPageState extends State<LoginPage> {
       },
     );
     //try sign in
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      //pop the loading circle
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      //pop the loading circle
+      Navigator.pop(context);
+      // Wrong email
+      if (e.code == 'user-not-found') {
+        // show error to user
+        wrongEmailMessage();
+      }
 
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text, password: passwordController.text);
-    // ignore: use_build_context_synchronously
-    Navigator.pop(context);
+      //Wrong password
+      else if (e.code == 'wrong-password') {
+        // show error to user
+        wrongPasswordMessage();
+      }
+    }
+  }
 
-    // print('sign in');
+  // show error message if wrong email
+  void wrongEmailMessage() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            title: Text('Wrong email'),
+          );
+        });
+  }
+
+  // show error message if wrong password
+  void wrongPasswordMessage() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            title: Text('Wrong password'),
+          );
+        });
   }
 
   @override
